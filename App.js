@@ -52,7 +52,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        {mode === 'customer' ? (
+        {mode === 'shopper' ? (
           <Stack.Screen 
             name="CustomerMode" 
             component={CustomerNavigator} 

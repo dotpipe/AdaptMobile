@@ -1,5 +1,7 @@
 # src/services/ad_manager.py
 
+from datetime import datetime
+
 class AdManager:
     def __init__(self):
         self.db = Database()
@@ -11,3 +13,11 @@ class AdManager:
 
     async def update_ad_schedule(self, ad_id, display_hours):
         await self.db.update_ad_schedule(ad_id, display_hours)
+
+    async def get_featured_products(self):
+        return await self.db.get_featured_products()
+
+    async def get_current_deals(self):
+        all_deals = await self.db.get_all_deals()
+        current_date = datetime.now().date()
+        return [deal for deal in all_deals if deal.start_date <= current_date <= deal.end_date]
