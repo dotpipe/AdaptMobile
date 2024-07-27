@@ -7,6 +7,7 @@ import { startGeofenceMonitoring } from './services/geofenceService';
 import LoginScreen from './screens/LoginScreen';
 import CustomerNavigator from './navigation/CustomerNavigator';
 import StoreNavigator from './navigation/StoreNavigator';
+import StoreManagerNavigator from './navigation/StoreManagerNavigator';
 import ModeSelectionScreen from './screens/ModeSelectionScreen';
 import { SyncManager } from './services/sync_manager';
 import { AdManager } from './services/ad_manager';
@@ -52,14 +53,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        {mode === 'shopper' ? (
+        {mode === 'customer' ? (
           <Stack.Screen 
             name="CustomerMode" 
             component={CustomerNavigator} 
             initialParams={{ currentAds }}
           />
-        ) : (
+        ) : mode === 'store' ? (
           <Stack.Screen name="StoreMode" component={StoreNavigator} />
+        ) : (
+          <Stack.Screen name="StoreManagerMode" component={StoreManagerNavigator} />
         )}
       </Stack.Navigator>
     </NavigationContainer>

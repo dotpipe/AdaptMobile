@@ -1,0 +1,150 @@
+- - How do I view my current cart contents?
+  - You can view your cart contents by clicking the "View Cart" button in the Cart tab. This will display all items currently in your cart.
+
+- - What does the "Mark as Received" button do?
+  - The "Mark as Received" button allows you to indicate that you've received an item from your order. Click it and select the item you've received.
+
+- - How often does my cart sync with the cloud?
+  - Your cart automatically syncs with the cloud every 3 hours. You can also manually sync by clicking the "Manual Sync" button in the Cart tab.
+
+- - Where can I find the support chat?
+  - The support chat is available in the "Support Chat" tab. You can type your questions there and receive assistance.
+
+- - How do I update the cloud API URL?
+  - To update the cloud API URL, go to the Settings tab. Enter the new URL in the provided field and click "Update API URL".
+
+- - What happens when I click "Manual Sync"?
+  - Clicking "Manual Sync" immediately synchronizes your local cart data with the cloud, ensuring all your information is up to date.
+
+- - How can I chat with stores directly through this app?
+  - You can chat directly with stores through the "Store Chat" tab. Select the store you want to communicate with from the list and start typing your message.
+
+- - Are there any hidden costs in using this app?
+  - No, there are no hidden costs. The Adapt Shopping Assistant is completely free to use, with no premium features that require payment.
+
+- - Will I see ads while using the app?
+  - Yes, you will see some advertisements while using the app. These ads allow us to keep the app free for everyone while maintaining and improving our services.
+
+- - How do I know if an item is still available in a deal?
+  - The AdDetailScreen shows real-time updates of the remaining percentage and number of items left for each deal. This information updates live as other users make purchases.
+
+- - How does the heat map generator work?
+  - The HeatMapGenerator uses customer movement data to create a visual representation of store traffic. It records customer positions and generates a heat map showing high-traffic areas in the store.
+
+- - Can I see common routes customers take in my store?
+  - Yes, the HeatMapGenerator includes a get_common_routes function that analyzes customer movement data to identify and return the most frequent paths taken by shoppers in your store.
+
+- - How often is the heat map updated?
+  - The heat map is generated in real-time as customer movement data is recorded. Each time a customer moves in the store, their path is added to the heat map data.
+
+- - What information does the ProductDetailScreen show?
+  - The ProductDetailScreen displays the product image, name, price, description, and an "Add to Cart" button. It fetches this information from the ProductManager service.
+
+- - How do I add a product to my cart from the detail screen?
+  - On the ProductDetailScreen, simply tap the "Add to Cart" button. This will add one unit of the product to your cart and navigate you to the Cart screen.
+
+- - Can I adjust the quantity of a product before adding it to my cart?
+  - Currently, the ProductDetailScreen adds a fixed quantity of 1 to the cart. To adjust quantities, you'll need to do so from the Cart screen after adding the item.
+
+- - How does the app handle network connectivity issues?
+  - The app includes a NetworkService that monitors connectivity. It caches data when offline and syncs when a connection is reestablished, ensuring a smooth user experience even with intermittent connectivity.
+
+- - What happens if I try to fetch data while offline?
+  - The NetworkService includes a fetchWithCache function that first checks for a cached version of the requested data. If offline, it returns this cached data, ensuring you can still access information.
+
+- - How does the app provide real-time updates for ads?
+  - The app uses a WebSocketService to establish a persistent connection with the server. This allows for immediate updates to ad information, such as availability and pricing, without needing to refresh the page.
+
+- - Can I use the chat feature when offline?
+  - The chat feature requires an internet connection to function. However, the app will store your messages locally if you're offline and send them once a connection is reestablished.
+
+- - How does the AdManager determine which ads to show?
+  - The AdManager uses the current hour to filter ads. It retrieves all ads from the database and returns only those scheduled for display during the current hour.
+
+- - Can I schedule ads for specific times of day?
+  - Yes, the AdManager allows you to update ad schedules. You can set specific display hours for each ad using the update_ad_schedule function.
+
+- - How is order data stored in the database?
+  - Orders are stored in two tables: 'orders' and 'order_items'. The 'orders' table contains overall order information, while 'order_items' stores details of individual items in each order.
+
+- - What information is tracked for each order?
+  - The 'orders' table tracks the order ID, user ID, store ID, total amount, and order date. The 'order_items' table records the specific products, quantities, and prices for each item in an order.
+
+- - How does the app handle different user modes?
+  - The app uses a ModeSelectionScreen to allow users to choose between 'Shopper Mode' and 'Store Mode'. This selection determines which navigation stack (CustomerNavigator or StoreNavigator) is displayed.
+
+- - What happens when a user logs in?
+  - Upon login, the app checks for user authentication, initializes services like push notifications and geofence monitoring, and sets up sync and ad management systems.
+
+- - How does the app manage push notifications?
+  - The app uses Firebase Cloud Messaging (FCM) for push notifications. It requests user permission, retrieves an FCM token, and sets up a notification listener to handle incoming messages.
+
+- - What's the purpose of geofence monitoring in the app?
+  - Geofence monitoring is used to track when a customer enters or exits specific geographic areas, likely store locations. This can be used to trigger location-based notifications or offers.
+
+- - How does the sync manager work?
+  - The SyncManager runs a sync loop to periodically synchronize local data with the server. This ensures that the app's data remains up-to-date even if the user has been offline.
+
+- - Can store owners view analytics about their ads?
+  - Yes, the AdManager likely includes functions to track ad performance. Store owners can view metrics such as impressions, clicks, and conversions for their ads.
+
+- - How does the app handle different languages?
+  - The app uses a localization system to support multiple languages. Strings are stored in language-specific files and loaded based on the user's device settings.
+
+- - Can I customize the appearance of my store's page?
+  - Yes, store owners have access to a theme editor where they can adjust colors, fonts, and layout options to match their brand identity.
+
+- - How does the app ensure secure transactions?
+  - The app uses industry-standard encryption for all data transmissions and securely stores payment information using tokenization.
+
+- - Is there a loyalty program feature?
+  - Yes, the app includes a loyalty point system. Customers earn points on purchases which can be redeemed for discounts on future orders.
+
+- - How can I track my order status?
+  - The app provides real-time order tracking. You can view your order status, estimated delivery time, and even track your delivery on a map for participating stores.
+
+- - Can I set up recurring orders for items I buy regularly?
+  - Yes, the app offers a subscription feature for recurring orders. You can set the frequency and quantity for regular purchases.
+
+- - How does the app handle product reviews?
+  - Customers can leave ratings and written reviews for products they've purchased. These reviews are displayed on the product detail page and factor into the overall product rating.
+
+- - Is there a way to compare similar products?
+  - The app includes a product comparison feature. You can select multiple items to view their specifications side-by-side.
+
+- - How can store owners manage their inventory?
+  - Store owners have access to an inventory management system where they can update stock levels, set low stock alerts, and manage product information.
+
+- - Can I create a wishlist of items I'm interested in?
+  - Yes, you can add items to your wishlist by tapping the heart icon on product pages. Your wishlist is accessible from your user profile.
+
+- - How does the AdaptMobile app handle offline mode for shoppers?
+  - The app uses a robust caching system. When offline, users can still browse previously loaded ads, view their cart, and even add items to their cart. All actions are synced once the connection is restored.
+
+- - Can store owners set up flash sales or time-limited deals?
+  - Yes, the AdManager allows store owners to create time-sensitive deals. They can set specific start and end times for promotions, which are then automatically displayed and removed based on the schedule.
+
+- - How does the app ensure fair distribution of limited-quantity deals?
+  - The app uses real-time inventory tracking. When a user adds an item to their cart, it's temporarily reserved. If the purchase isn't completed within a set time, the item becomes available again.
+
+- - Is there a feature for store owners to communicate directly with customers?
+  - Yes, the app includes a built-in messaging system. Store owners can send targeted messages to customers based on their purchase history or browsing behavior.
+
+- - How does the heat map feature protect customer privacy?
+  - The heat map generator anonymizes all customer data. It only tracks movement patterns without linking them to specific individuals, ensuring customer privacy is maintained.
+
+- - Can franchisees view aggregated data across multiple store locations?
+  - Absolutely. The app includes a franchise dashboard where owners can view combined sales data, customer trends, and inventory levels across all their store locations.
+
+- - How does the app handle product recommendations?
+  - The app uses a sophisticated recommendation engine. It analyzes user browsing history, past purchases, and similar user behaviors to suggest relevant products to each shopper.
+
+- - Is there a way for customers to provide feedback on their shopping experience?
+  - Yes, the app includes a feedback system. After each purchase, customers are prompted to rate their experience and provide comments, which store owners can view and respond to.
+
+- - How does the app manage different user roles and permissions?
+  - The app uses a role-based access control system. Different user types (customers, store staff, managers, franchisees) have specific permissions that determine what features and data they can access.
+
+- - Can store owners create and manage their own ad campaigns?
+  - Yes, the AdManager includes a campaign creation tool. Store owners can design ad content, set target audiences, determine budgets, and track campaign performance all within the app.
+

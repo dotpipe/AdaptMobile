@@ -1,29 +1,30 @@
+// Top-level build.gradle
 buildscript {
     ext {
-        buildToolsVersion = "34.0.0"
-        minSdkVersion = 23
-        compileSdkVersion = 34
-        targetSdkVersion = 34
-        ndkVersion = "26.1.10909125"
-        kotlinVersion = "1.9.22"
+        buildToolsVersion = "33.0.0"
+        minSdkVersion = 21
+        compileSdkVersion = 33
+        targetSdkVersion = 33
+        ndkVersion = "23.1.7779620"
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools.build:gradle:7.3.1")
         classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
-        implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
-        implementation 'com.google.firebase:firebase-auth'
-        implementation("com.google.firebase:firebase-analytics")
-    }
-    plugins {
-        id("com.google.gms.google-services") version "4.4.2" apply false
-        id("com.google.gms.google-services")
-        id("com.android.application")
+        classpath('com.google.gms:google-services:4.3.15')
     }
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+// Apply the Google Services plugin (for Firebase)
 apply plugin: 'com.google.gms.google-services'
-apply plugin: "com.facebook.react.rootproject"
+apply plugin: 'com.google.gms.google-services'

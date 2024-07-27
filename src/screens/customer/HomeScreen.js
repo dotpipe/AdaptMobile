@@ -1,14 +1,24 @@
 // src/screens/customer/HomeScreen.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AdManager } from '../../services/ad_manager';
 
-const featuredProducts = await AdManager.get_featured_products();
-const deals = await AdManager.get_current_deals();
-
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [deals, setDeals] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const adManager = new AdManager();
+      const products = await adManager.getFeaturedProducts();
+      const currentDeals = await adManager.getCurrentDeals();
+      setFeaturedProducts(products);
+      setDeals(currentDeals);
+    };
+    fetchData();
+  }, []);
 
   const renderFeaturedProduct = ({ item }) => (
     <TouchableOpacity style={styles.featuredProductItem}>

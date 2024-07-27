@@ -1,29 +1,57 @@
-// src/services/GeofencingService.js
-import BackgroundGeolocation from '@mauron85/react-native-background-geolocation';
-import { updateStoreOccupancy } from './api';
+import BackgroundGeolocation from 'react-native-background-geolocation';
+import { updateHeatmap } from './heatmapService';
 
-export const startGeofencingService = (stores) => {
-  BackgroundGeolocation.configure({
-    desiredAccuracy: BackgroundGeolocation.HIGH_ACCURACY,
-    stationaryRadius: 50,
-    distanceFilter: 50,
-    debug: __DEV__,
-    startOnBoot: false,
-    stopOnTerminate: true,
-    locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
-    interval: 10000,
-    fastestInterval: 5000,
-    activitiesInterval: 10000,
+export const startGeofenceMonitoring = (userId) => {
+  BackgroundGeolocation.onGeofence(geofenceEvent => {
+    console.log('[geofence] ', geofenceEvent.identifier, geofenceEvent.action);
+    if (geofenceEvent.action === 'ENTER') {
+      enterStore(geofenceEvent.identifier);
+    } else if (geofenceEvent.action === 'EXIT') {
+      leaveStore();
+    }
   });
 
-  BackgroundGeolocation.on('location', (location) => {
-    stores.forEach(store => {
-      const distance = calculateDistance(location, store);
-      if (distance <= store.radius) {
-        updateStoreOccupancy(store.id, 1);
-      }
+  BackgroundGeolocation.ready({
+    desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
+    distanceFilter: 5,
+    stopOnTerminate: false,
+    startOnBoot: true,
+    debug: true,
+    logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+    geofenceInitialTriggerEntry: true,
+  }, (state) => {
+    console.log("- BackgroundGeolocation is ready: ", state);
+    BackgroundGeolocation.start();
+  });
+};
+
+let storeInterval = null;
+
+export const enterStore = (storeId) => {
+  storeInterval = setInterval(() => {
+    BackgroundGeolocation.getCurrentPosition({
+      samples: 1,
+      persist: true
+    }, (location) => {
+      console.log('[store location] ', location);
+      updateHeatmap(location.coords.latitude, location.coords.longitude);
     });
-  });
+  }, 15 * 1000); // 15 seconds interval
+};
 
-  BackgroundGeolocation.start();
+export const leaveStore = () => {
+  if (storeInterval) {
+    clearInterval(storeInterval);
+    storeInterval = null;
+  }
+};
+
+export const manualLocationUpdate = () => {
+  BackgroundGeolocation.getCurrentPosition({
+    samples: 1,
+    persist: true
+  }, (location) => {
+    console.log('[manual location] ', location);
+    updateHeatmap(location.coords.latitude, location.coords.longitude);
+  });
 };
